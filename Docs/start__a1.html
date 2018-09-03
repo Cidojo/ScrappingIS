@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Тестирование А1</title>
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body class="page">
+      <header class="main-header container">
+        <nav class="main-nav navigation">
+          <ul class="navigation__list">
+            <li class="navigation__item">
+              <a class="navigation__link" href="index.html">Вернуться в главное меню</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <main class="container">
+        <h1 class="page__title title"><span class="title__cat" >
+          Категория <span class="title__cat-num">А1</span></span>Основы промышленной безопасности (декабрь 2016)
+        </h1>
+        <section class="quiz">
+          <h2 class="quiz__title">Билет <span class="quiz__ticketNum"></span></h2>
+          <div class="quiz__question">
+            <p class="quiz__question-number"></p>
+            <p class="quiz__question-text"></p>
+          </div>
+          <p id="countdown" class="quiz__countdown"></p>
+          <ul class="quiz__answers">
+          </ul>
+          <!-- <div class="quiz__apply">
+            <button class="quiz__check">Показать правильный ответ</button>
+          </div> -->
+          <div class="quiz__roll">
+            <button class="quiz__submit btn">Проверить</button>
+            <!-- <button class="quiz__rollAll">Все вопросы</button> -->
+            <button class="quiz__prev btn">Предыдущий</button>
+            <button class="quiz__next btn">Следующий</button>
+          </div>
+        </section>
+        <section class="module__tickets">
+          <h2>Выбери билет:</h2>
+          <ul class="module__list">
+          </ul>
+        </section>
+        <script src="data/dataBase_a1.js"></script>
+        <script src="js/buildQ.js"></script>
+      </main>
+  </body>
+</html>

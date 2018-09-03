@@ -1,0 +1,97 @@
+@font-face {
+    font-family: "Mill";
+    src: url("../fonts/Mill.ttf") format("ttf");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+
+  font-family: "Mill", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.5em;
+
+  color: #AACCFF;
+  background-color: #222233;
+}
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.btn {
+  width: 150px;
+  height: 40px;
+  padding: 0;
+
+  font-weight: bold;
+
+  text-transform: uppercase;
+  color: #AACCFF;
+
+  background-color: #222233;
+  border: 3px solid silver;
+  border-radius: 20px;
+  box-shadow: none;
+
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #000000;
+}
+
+.page__title {
+  margin: 40px auto;
+  padding: 40px;
+
+  font-size: 27px;
+  line-height: 1.3em;
+
+  text-align: center;
+  background-color: #222233;
+}
+
+.cats__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  width: 400px;
+  margin: 0 auto;
+
+  list-style: none;
+}
+
+.cats__item {
+  display: flex;
+  justify-content: center;
+
+  width: 120px;
+  height: 40px;
+  margin: 20px;
+  padding: 0;
+
+  color: #AACCFF;
+
+  border: 3px solid silver;
+  border-radius: 20px;
+}
+
+.cats__item:hover {
+  background-color: #000000;
+}
+
+.cats__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  text-decoration: none;
+  color: #AACCFF;
+}
