@@ -35,7 +35,7 @@ function formTicketsList() {
     var newTicketLink = myCreateElement("a");
     var newTicketTitle = document.createTextNode("Билет №" + (t));
 
-    newTicket.classList.add("tickets__item");    
+    newTicket.classList.add("tickets__item");
 
     mySetAttribute(newTicketLink, "href", "#" + (i + 1));
 
@@ -62,13 +62,18 @@ function mySetAttribute(elem, name, value) {
 }
 
 function countdown() {
+      buttonPrev.setAttribute("disabled", "disabled");
+      buttonNext.setAttribute("disabled", "disabled");
       seconds -= 1;
       if (seconds < 0) {
           // Chnage your redirection link here
+          buttonPrev.removeAttribute("disabled");
+          buttonNext.removeAttribute("disabled");
           buttonNext.click();
       } else {
           // Update remaining seconds
           if (questionNum == 5) {
+            buttonPrev.removeAttribute("disabled");          
             document.getElementById("countdown").innerHTML = "Верно! Билет закончен, выбирай другой Билет!";
           } else {
             document.getElementById("countdown").innerHTML = "Верно! Следующий вопрос через " + seconds + " секунд.";
@@ -177,7 +182,7 @@ buttonSubmit.addEventListener("click", function() {
   }
 
   if (!document.querySelector("input:checked")) {
-    alert("Choose an Answer, Moron!!!");
+    alert("Проверка выполняется автоматически, просто выберите вариант ответа");
     return;
   }
   if (tickets[ticketNum - 1][questionNum - 1].correct == document.querySelector("input:checked").value) {
@@ -185,7 +190,7 @@ buttonSubmit.addEventListener("click", function() {
     countdown();
   } else {
     document.querySelector("input:checked").parentElement.classList.add("quiz__answer--wrong");
-    document.getElementById("countdown").innerHTML = "Не верно! Выбери другой ответ.";
+    document.getElementById("countdown").innerHTML = "Не верно! Выбери другой вариант.";
   }
 });
 
