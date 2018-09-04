@@ -5,7 +5,11 @@ var answers = document.querySelector("ul.quiz__answers");
 
 var ticketNum = 1;
 var questionNum = 1;
-var seconds = 3;
+var seconds = 1;
+var scores = {
+  questions: [],
+  tries: []
+};
 // tickets List
 
 var ticketsList;
@@ -64,17 +68,23 @@ function mySetAttribute(elem, name, value) {
 function countdown() {
       buttonPrev.setAttribute("disabled", "disabled");
       buttonNext.setAttribute("disabled", "disabled");
+
+
       seconds -= 1;
       if (seconds < 0) {
           // Chnage your redirection link here
           buttonPrev.removeAttribute("disabled");
           buttonNext.removeAttribute("disabled");
           buttonNext.click();
+
+          // document.querySelector("input[value = \"" + tickets[ticketNum - 1][questionNum - 1].correct + "\"]").removeEventListener("click", () => buttonSubmit.click());
+
       } else {
           // Update remaining seconds
-          if (questionNum == 5) {
-            buttonPrev.removeAttribute("disabled");          
+          if (questionNum === tickets[ticketNum - 1].length) {
+            buttonPrev.removeAttribute("disabled");
             document.getElementById("countdown").innerHTML = "Верно! Билет закончен, выбирай другой Билет!";
+            createRaport();
           } else {
             document.getElementById("countdown").innerHTML = "Верно! Следующий вопрос через " + seconds + " секунд.";
             // Count down using javascript
@@ -85,14 +95,21 @@ function countdown() {
 
 function addContent(ticketNum, questionNum) {
   question.textContent = tickets[ticketNum - 1][questionNum - 1].quest;
+
   questionNumText.textContent = "Вопрос " + tickets[ticketNum - 1][questionNum - 1].num;
+
   ticketsList = document.querySelector(".module__tickets ul");
+
   ticketNumText.textContent = ticketNum;
 
-  // лист всех билетов
-  formTicketsList();
+  document.querySelector(".raport").classList.toggle("raport--show", false);
 
+  collectTries = 0;
+
+  // лист всех билетов
   deleteElemChildren(answers);
+
+  formTicketsList();
 
   for (var i = 0; i < tickets[ticketNum - 1][questionNum - 1].vary.length; i++) {
     var newAnswer = myCreateElement("li");
@@ -113,9 +130,51 @@ function addContent(ticketNum, questionNum) {
     myAppendChild(newAnswer, newAnswerLabel);
     myAppendChild(answers, newAnswer);
 
-    newAnswerInput.addEventListener("click", () => buttonSubmit.click());
-
+    newAnswerInput.addEventListener("click", () => buttonSubmit.click(), {once: true});
   }
+}
+
+function createRaport() {
+  document.querySelector(".raport").classList.toggle("raport--show", true);
+
+  function sumTries() {
+    var sum = 0;
+    for (var i = 0; i < scores.tries.length; i++) {
+      sum += scores.tries[i];
+    }
+    return sum;
+  }
+
+  var raportList = document.querySelector(".raport__list");
+  deleteElemChildren(raportList);
+
+  var corrAnswers = 0;
+
+  for (var i = 0; i < questionNum; i++) {
+
+    if (scores.tries[i] == 1) {corrAnswers += 1;}
+
+    var raportItem = myCreateElement("li");
+    var raportItemText = myCreateTextNode(scores.tries[i] ? "Вопрос " + (i+1) + ": " + (scores.tries[i] === 2 ? "ответил правильно со " : "ответил правильно с ") + scores.tries[i] + " попытки." : "Вопрос " + (i+1) + ": пропущен.")
+    myAppendChild(raportItem, raportItemText);
+    myAppendChild(raportList, raportItem);
+  }
+
+  // var raportItem = myCreateElement("li");
+  var raportCorrectText = myCreateTextNode("Ответил с первой попытки на " + corrAnswers + (corrAnswers === 1 ? " вопрос из " : (corrAnswers === 2 || corrAnswers === 3 || corrAnswers === 4 ? " вопроса из " : " вопросов из ")) + questionNum + ".");
+  raportList.insertBefore(raportCorrectText, raportList.firstChild);
+
+  var raportTitle = document.querySelector(".raport__title");
+  deleteElemChildren(raportTitle);
+
+  var raportTitleText = "";
+  if (questionNum == 10) {
+  raportTitleText = myCreateTextNode(corrAnswers >= scores.tries.length - 2 ? "Поздравляю, ты сдал!" : "Ты должен лучше стараться, иначе завалишься...");
+} else {
+  raportTitleText = myCreateTextNode(corrAnswers >= scores.tries.length - 1 ? "Поздравляю, ты сдал!" : "Ты должен лучше стараться, иначе завалишься...");
+}
+
+  myAppendChild(raportTitle, raportTitleText);
 }
 
 addContent(ticketNum, questionNum);
@@ -125,6 +184,7 @@ addContent(ticketNum, questionNum);
 var buttonNext = document.querySelector(".quiz__next");
 var buttonPrev = document.querySelector(".quiz__prev");
 var buttonSubmit = document.querySelector(".quiz__submit");
+var buttonRaportClose = document.querySelector(".raport__close");
 
 function checkNumPrev(quest) {
   if (quest == 1) {
@@ -156,7 +216,7 @@ buttonNext.addEventListener("click", function() {
   checkNumPrev(questionNum);
 
   addContent(ticketNum, questionNum);
-  seconds = 3;
+  seconds = 1;
   document.getElementById("countdown").innerHTML = "";
 });
 
@@ -187,12 +247,21 @@ buttonSubmit.addEventListener("click", function() {
   }
   if (tickets[ticketNum - 1][questionNum - 1].correct == document.querySelector("input:checked").value) {
     document.querySelector("input:checked").parentElement.classList.add("quiz__answer--correct");
+
+    collectTries += 1;
+    scores.questions[questionNum - 1] = questionNum;
+    scores.tries[questionNum - 1] = collectTries;
+
     countdown();
   } else {
-    document.querySelector("input:checked").parentElement.classList.add("quiz__answer--wrong");
+    document.querySelector("input:checked").parentElement.classList.add("quiz__answer--wrong", "quiz__answer--disabled");
     document.getElementById("countdown").innerHTML = "Не верно! Выбери другой вариант.";
+
+    collectTries += 1;
   }
 });
+
+buttonRaportClose.addEventListener("click", () => document.querySelector(".raport").classList.remove("raport--show"));
 
 window.addEventListener("hashchange", function() {
   ticketNum = window.location.hash.substring(1);

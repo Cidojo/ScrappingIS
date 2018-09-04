@@ -202,7 +202,7 @@ body {
   background-color: #222233;
 }
 
-.quiz__answer:hover {
+.quiz__answer:not(.quiz__answer--disabled):hover {
   background-color: #000000;
 }
 
@@ -232,6 +232,10 @@ body {
   background-color: #F39A35;
 }
 
+.quiz__answer--disabled {
+  background-color: #a0a5a7;
+}
+
 .quiz__roll {
   display: flex;
   justify-content: space-between;
@@ -254,6 +258,10 @@ body {
   box-shadow: none;
 
   cursor: pointer; */
+}
+
+.quiz__submit {
+  display: none;
 }
 
 .module__tickets {
@@ -308,4 +316,47 @@ body {
 
   text-decoration: none;
   color: #AACCFF;
+}
+
+.raport {
+  display: none;
+
+  position: absolute;
+  top: 500px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 600px;
+  height: 600px;
+
+  background-color: #222233;
+
+  border: 3px solid silver;
+  border-radius: 50px;
+}
+
+.raport--show {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.raport__title {
+  text-align: center;
+}
+
+.raport__list {
+  width: 100%;
+
+  text-align: left;
+
+  list-style: none;
+}
+
+.raport__list li:first-child {
+  margin-top: 10px;
+}
+
+.raport__close {
+  margin: 20px;
 }
