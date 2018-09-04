@@ -7,6 +7,9 @@
 }
 
 body {
+  width: 1600px;
+  margin: 0 auto;
+
   font-family: "Mill", Arial, sans-serif;
   font-size: 18px;
   line-height: 1.5em;
@@ -178,6 +181,14 @@ body {
   background-color: #222233;
 }
 
+.quiz__countdown {
+  height: 27px;
+
+  margin: 40px 0;
+
+  text-align: center;
+}
+
 .quiz__answers {
   display: flex;
   flex-wrap: wrap;
@@ -186,7 +197,6 @@ body {
   width: 100%;
   margin: 0 auto;
   padding: 0;
-  padding-top: 100px;
 
   list-style: none;
 }
