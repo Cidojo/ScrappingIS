@@ -66,15 +66,15 @@ function mySetAttribute(elem, name, value) {
 }
 
 function countdown() {
-      buttonPrev.setAttribute("disabled", "disabled");
-      buttonNext.setAttribute("disabled", "disabled");
+      buttonPrev.disabled = true;
+      buttonNext.disabled = true;
 
 
       seconds -= 1;
       if (seconds < 0) {
           // Chnage your redirection link here
-          buttonPrev.removeAttribute("disabled");
-          buttonNext.removeAttribute("disabled");
+          buttonPrev.disabled = '';
+          buttonNext.disabled = '';
           buttonNext.click();
 
           // document.querySelector("input[value = \"" + tickets[ticketNum - 1][questionNum - 1].correct + "\"]").removeEventListener("click", () => buttonSubmit.click());
@@ -185,6 +185,7 @@ var buttonNext = document.querySelector(".quiz__next");
 var buttonPrev = document.querySelector(".quiz__prev");
 var buttonSubmit = document.querySelector(".quiz__submit");
 var buttonRaportClose = document.querySelector(".raport__close");
+var buttonShowCorrect = document.querySelector(".quiz__check");
 
 function checkNumPrev(quest) {
   if (quest == 1) {
@@ -262,6 +263,10 @@ buttonSubmit.addEventListener("click", function() {
 });
 
 buttonRaportClose.addEventListener("click", () => document.querySelector(".raport").classList.remove("raport--show"));
+
+buttonShowCorrect.addEventListener("click", function () {
+  document.querySelectorAll(".quiz__answer label")[tickets[ticketNum - 1][questionNum - 1].correct - 1].setAttribute("style", "color: #1F1254; background-color: #00FFCC;");
+});
 
 window.addEventListener("hashchange", function() {
   ticketNum = window.location.hash.substring(1);

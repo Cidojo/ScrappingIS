@@ -1,6 +1,6 @@
 var questCollection = [];
 var answerCollection;
-var ticketNumString = document.querySelector("font > h3").textContent;
+var ticketNumString = document.querySelector("h5").textContent;
 var numberto = ticketNumString.substring(ticketNumString.indexOf('№')+1, );
 var ticketNum = "ticket__" + ticketNumString.substring(ticketNumString.indexOf('№')+1, );
 
@@ -15,14 +15,15 @@ function createQuest(num, quest, varyArray, currNum) {
   }
 };
 
-var selectQuestion = document.querySelectorAll("font > table > tbody > tr > td.v:first-child");
+var selectQuestion = document.querySelectorAll('h5 ~ div div > i');
 
 for (var i = 0; i < selectQuestion.length; i++) {
   var currNum = 0;
 
-  var selectAnswers = selectQuestion[i].nextSibling.querySelectorAll("table tr" );
+  selectQuestion[i].removeChild(selectQuestion[i].children[0]);
+  var selectAnswers = selectQuestion[i].parentElement.querySelectorAll('span');
 
-  myString = selectQuestion[i].textContent;
+  myString = selectQuestion[i].textContent.trim();
   var trimmed = myString.substring(myString.indexOf(')')+1);
   answerCollection = [];
 
@@ -30,8 +31,7 @@ for (var i = 0; i < selectQuestion.length; i++) {
 
     var answerX = selectAnswers[j].textContent;
     answerCollection.push(answerX);
-
-    if (selectAnswers[j].getAttribute("bgcolor") === "#00ff00") {
+    if (selectAnswers[j].getAttribute("style") === "color:#4db83e") {
       currNum = j+1;
       // console.log(trimmed);
       // console.log("Вопрос " + (i+1) + ":" + trimmed + "\nПравильный ответ: " + selectAnswers[j].textContent)
@@ -72,5 +72,5 @@ console.save = function(data, filename){
 
 console.save(questCollection, ticketNum + ".js")
 
-var pipi = "https://tests24.ru/?iter=4&bil=" + (Number(numberto) + 1) + "&test=566";
+var pipi = "https://tests24.ru/?iter=4&bil=" + (Number(numberto) + 1) + "&test=520";
 window.location.href = pipi;
