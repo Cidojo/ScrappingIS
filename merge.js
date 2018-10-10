@@ -1,4 +1,4 @@
-const topic = "Б2.13"
+const topic = "Б7.6"
 const testFolder = `./DBase/${topic}/tickets/`;
 const fs = require('fs');
 var files = [];
