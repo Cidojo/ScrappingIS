@@ -40,9 +40,7 @@ function formTicketsList() {
     var newTicketTitle = document.createTextNode("Билет №" + (t));
 
     newTicket.classList.add("tickets__item");
-    newTicketLink.addEventListener('click', function () {
-      window.scrollTo(0, 0);
-    });
+    newTicketLink.addEventListener('click', moveToTop);
 
     mySetAttribute(newTicketLink, "href", "#" + (i + 1));
 
@@ -68,6 +66,10 @@ function mySetAttribute(elem, name, value) {
   elem.setAttribute(name, value);
 }
 
+function moveToTop() {
+  window.scrollTo(0, 0);
+}
+
 function countdown() {
       buttonPrev.disabled = true;
       buttonNext.disabled = true;
@@ -79,6 +81,7 @@ function countdown() {
           buttonPrev.disabled = '';
           buttonNext.disabled = '';
           buttonNext.click();
+          moveToTop();
 
           // document.querySelector("input[value = \"" + tickets[ticketNum - 1][questionNum - 1].correct + "\"]").removeEventListener("click", () => buttonSubmit.click());
 
