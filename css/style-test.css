@@ -391,4 +391,8 @@ body {
     width: auto;
     flex-wrap: wrap;
   }
+
+  .raport {
+    width: 320px;
+  }
 }
