@@ -57,6 +57,8 @@ body {
   left: -180px;
   top: 35px;
 
+  width: 130px;
+  margin: 0 auto;
   border: 3px solid silver;
   border-radius: 50%;
 }
@@ -81,6 +83,7 @@ body {
 }
 
 .page__title {
+  display: block;
   padding: 40px;
 
   font-size: 27px;
@@ -368,4 +371,25 @@ body {
 
 .raport__close {
   margin: 20px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 320px;
+  }
+
+  .navigation {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+
+  .page__title {
+    display: none;
+  }
+
+  .quiz__question {
+    width: auto;
+    flex-wrap: wrap;
+  }
 }
