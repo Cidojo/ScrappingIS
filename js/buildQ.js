@@ -40,6 +40,9 @@ function formTicketsList() {
     var newTicketTitle = document.createTextNode("Билет №" + (t));
 
     newTicket.classList.add("tickets__item");
+    newTicketLink.addEventListener('click', function () {
+      window.scrollTo(0, 0);
+    });
 
     mySetAttribute(newTicketLink, "href", "#" + (i + 1));
 
