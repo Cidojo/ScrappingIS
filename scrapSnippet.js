@@ -72,5 +72,5 @@ console.save = function(data, filename){
 
 console.save(questCollection, ticketNum + ".js")
 
-var pipi = "https://tests24.ru/?iter=4&bil=" + (Number(numberto) + 1) + "&test=520";
+var pipi = "https://tests24.ru/?iter=4&bil=" + (Number(numberto) + 1) + "&test=615";
 window.location.href = pipi;

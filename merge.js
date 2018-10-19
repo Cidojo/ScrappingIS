@@ -1,18 +1,25 @@
-const topic = "Б9.33"
-const testFolder = `./DBase/${topic}/tickets/`;
+const TOPIC = "Б7.8"
+const FOLDER = `./DBase/${TOPIC}/tickets/`;
 const fs = require('fs');
-var files = [];
 
+function collectFiles() {
+  var files = [];
 
-var b = fs.readdirSync(testFolder).forEach(file => {
-  files.push(`./DBase/${topic}/tickets/`+file);
-})
+  fs.readdirSync(FOLDER).forEach(file => {
+    files.push(`./DBase/${TOPIC}/tickets/`+file);
+  });
+
+  return files;
+}
 
 
 function merge() {
   var mergeResult = [];
-  for (var i = 0; i < files.length; i++) {
-    var tick = require(`./DBase/${topic}/tickets/ticket__${i+1}.js`);
+
+  collectFiles();
+
+  for (var i = 0; i < collectFiles().length; i++) {
+    var tick = require(`./DBase/${TOPIC}/tickets/ticket__${i+1}.js`);
     var arr = eval("ticket__" + (i+1));
 
     mergeResult.push(arr);
@@ -20,9 +27,8 @@ function merge() {
   return mergeResult;
 }
 
-var mergeResult = merge();
 
-fs.appendFile(`./DBase/${topic}/dataBase.js`, "tickets = " + JSON.stringify(mergeResult, undefined, 4), function (err) {
+fs.appendFile(`./DBase/${TOPIC}/data.js`, "tickets = " + JSON.stringify(merge(), undefined, 4), function (err) {
   if (err) throw err;
   console.log('Saved!');
 });
