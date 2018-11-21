@@ -5,7 +5,7 @@ var answers = document.querySelector("ul.quiz__answers");
 
 var ticketNum = 1;
 var questionNum = 1;
-var seconds = 1;
+var interval = 1;
 var scores = {
   questions: [],
   tries: []
@@ -71,16 +71,14 @@ function moveToTop() {
 }
 
 
-function countdown() {
+function countdown(seconds) {
   var timeoutMsg = "";
-
-  seconds -= 1;
 
   buttonPrev.disabled = true;
   buttonNext.disabled = true;
 
 
-  if (seconds < 0) {
+  if (seconds <= 0) {
     buttonPrev.disabled = false;
     buttonNext.disabled = false;
     buttonNext.click();
@@ -90,8 +88,8 @@ function countdown() {
     timeoutMsg = "Верно! Билет закончен, выбирай другой Билет!";
     createRaport();
   } else {
-    var timeoutMsg = "Верно! Следующий вопрос через " + seconds + " секунд.";
-    window.setTimeout("countdown()", 1000);
+    timeoutMsg = "Верно! Следующий вопрос через " + seconds + " секунд.";
+    window.setTimeout(countdown, 1000, seconds - 1);
   }
 
   document.getElementById("countdown").textContent = timeoutMsg;
@@ -243,7 +241,7 @@ buttonNext.addEventListener("click", function() {
   checkNumPrev(questionNum);
 
   addContent(ticketNum, questionNum);
-  seconds = 1;
+
   document.getElementById("countdown").innerHTML = "";
 });
 
@@ -279,7 +277,7 @@ buttonSubmit.addEventListener("click", function() {
     scores.questions[questionNum - 1] = questionNum;
     scores.tries[questionNum - 1] = collectTries;
 
-    countdown();
+    countdown(interval);
   } else {
     document.querySelector("input:checked").parentElement.classList.add("quiz__answer--wrong", "quiz__answer--disabled");
     document.getElementById("countdown").innerHTML = "Не верно! Выбери другой вариант.";
